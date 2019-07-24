@@ -11,9 +11,6 @@ pipelines:
       uat:
         pipeline: deploy_to_uat
         stage: approval_stage
-      build:
-        pipeline: build_and_package
-        stage: build_stage
       SourceCodeRepo:
         git: https://github.com/davidstanke/node-bulletin-board.git
         shallow_clone: false
@@ -29,7 +26,7 @@ pipelines:
                 options:
                   SkipImagePulling: 'true'
                 artifact_id: bulletin-board
-                pipeline: build_and_package
+                pipeline: build_and_package/deploy_to_uat
                 stage: build_stage
                 job: build_image
                 artifact_origin: external
