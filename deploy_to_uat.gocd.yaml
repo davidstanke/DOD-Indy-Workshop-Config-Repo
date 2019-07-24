@@ -21,9 +21,30 @@ pipelines:
         jobs:
           show_ready:
             elastic_profile_id: demo-app
-            tasks:
+              tasks:
             - exec:
                 command: /bin/bash
                 arugments:
                   - -c
                   - echo "ready"
+    - deploy_uat:
+        approval:
+          type: manual
+        jobs:
+          deploy:
+            elastic_profile_id: demo-app
+              tasks:
+            - fetch:
+                options:
+                  EnvironmentVariablePrefix: ''
+                  SkipImagePulling: 'true'
+                artifact_id: bulletin-board
+                pipeline: build_and_package
+                stage: build_stage
+                job: build_image
+                artifact_origin: external
+                run_if: passed
+            - exec:
+                command: ./app-deployment.sh
+                arguments:
+                  run_if: passed
