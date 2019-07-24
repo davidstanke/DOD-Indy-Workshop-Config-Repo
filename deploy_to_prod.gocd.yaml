@@ -1,21 +1,24 @@
 format_version: 4
 pipelines:
-  deploy_to_prod:
+  deploy_to_prod_two:
     group: kubernetes
-    display_order: 3
+    display_order: 4
     environment_variables:
       NAMESPACE: gocd
     secure_variables:
       KUBE_TOKEN: "AES:BKlsBOPgZ3OD6B/Y4Ntidw==:Gk5N/BTPM30aA/CtO3o8v6i2BAVNz9T0gPqo+MnMcvaDcvGLxIwZBuGreIxu2+uSt+VtAp1/OZOw5dOQ+ah6kv+FI6eh/8bGirzngHc+xhReexxYZurDOaMyOPVQNB559891Vse+oLwsYHpNxYe9hsweZQ3JUiWxCLoNJriUCaWqDuL4JNYdxVbQoKLjdTdIIJkc7iz3aEAW+PxWW9GHA0Fik5K/Vg0Ii2g82/StbmYnGnJzhRlgTHI54aSHJzdZ8JpREqzdAyTqRqtZ+BLRCEtdQ2AqQnlU7Od/Ksjc9tKCTyFCbWTFEAs/Z+7/v3lK3HhzX5Tekk4OYIzsbA5veYJA9s8qZYPTeOA7CSDv/3LGpw17yw3paVgc7OBTiGNI/YbCxiYTinS1uD2xDFc3EksM2d/11DSls9Eyellfk9x/704ROFnLfgAjK5/acT4/8ZOC+uhdzCqNLQPawKw9LGzM+ASJkMGmBfrUSVmzZtvuCOgLuEiCafPwUWT9rPWiT4VpKAVVeJkR34Q+zHGZ9yd+qkzg8rTzfl1JwRb7CPqHoaG3iOw9QvYI63WjDvAEv8N1FRVwwdanKzWtwapn8Os1LACd4rZvJrSS1s0CZNPQ7jZJeo9GjelqpgwS6mXF3sG/euKHsdOERNLfGW+xlYSew0pkddKBQecz+Vmwn8LkA077PR/sPJwxPIylWBt+LwShVTPLPZmx3VBs4eDyq+yy/1BXpfBkpYIP3Hc0YGOw81N39yblixMLFW63jH1kcimsxanB271U1ZYfLPWOkdNgwileGIS+enPMwxUOYXfS7xE0DQ7Tn+MI5jJKg3V+SdkqPHNIOszGCsTIs8xqCc+XTp7k7IHpaL29lSSnZVf2t0jjnOeWJgLAtQRsc77QenAXYOlQjWh7cUGM07cLsOSkZrVpokht78dicAJieBQt/OwulManq2JyD1109phGZ0DHiKxyhL/QKgxg6PoSdiVhLFfLBzHdRv2v7nhA+G7zajNZol8e9+XdD26iiTqVwOtzk6aaGnrwAr16DFgT5Dl37diZfnC0y7t/+1bs0trEz9bqwMJwrUvWxCsYWG1RCRKKov8j8zBj1BveZ6B9bd6IFo/Fw87Cs65cz2x012mwZE8HyEqPwdAEWV1BLvqmouPxqipsUowA19m1DI4bMA=="
     materials:
-      build:
+      uat:
         pipeline: deploy_to_uat
-        stage: approved
+        stage: approval_stage
+      build:
+        pipeline:  build_and_package
+        stage: build_stage
       SourceCodeRepo:
         git: https://github.com/davidstanke/node-bulletin-board.git
         shallow_clone: false
     stages:
-    - deploy_to_prod:
+    - deploy_to_cluster:
         approval:
           type: success
         jobs:
@@ -24,7 +27,6 @@ pipelines:
             tasks:
             - fetch:
                 options:
-                  EnvironmentVariablePrefix: ''
                   SkipImagePulling: 'true'
                 artifact_id: bulletin-board
                 pipeline: build_and_package
