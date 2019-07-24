@@ -31,7 +31,7 @@ pipelines:
                 - -c
                 - docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application
                 command: /bin/bash
-    - test_stage
+    - test_stage:
         jobs:
           test_image:
             elastic_profile_id: demo-app
