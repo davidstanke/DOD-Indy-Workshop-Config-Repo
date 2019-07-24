@@ -23,7 +23,7 @@ pipelines:
             elastic_profile_id: demo-app
             tasks:
             - exec:
-              command: /bin/bash
-              arugments:
-                - -c
-                - echo "ready"
+                command: /bin/bash
+                arugments:
+                  - -c
+                  - echo "ready"
