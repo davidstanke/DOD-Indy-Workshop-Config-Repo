@@ -26,7 +26,7 @@ pipelines:
                 options:
                   SkipImagePulling: 'true'
                 artifact_id: bulletin-board
-                pipeline: uat/build_and_package
+                pipeline: deploy_to_uat/build_and_package
                 stage: build_stage
                 job: build_image
                 artifact_origin: external
