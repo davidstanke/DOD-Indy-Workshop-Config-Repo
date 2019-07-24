@@ -21,7 +21,7 @@ pipelines:
         jobs:
           show_ready:
             elastic_profile_id: demo-app
-              tasks:
+            tasks:
             - exec:
                 command: /bin/bash
                 arugments:
@@ -33,7 +33,7 @@ pipelines:
         jobs:
           deploy:
             elastic_profile_id: demo-app
-              tasks:
+            tasks:
             - fetch:
                 options:
                   EnvironmentVariablePrefix: ''
