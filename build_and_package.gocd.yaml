@@ -4,7 +4,7 @@ pipelines:
     group: kubernetes
     display_order: 1
     environment_variables:
-      DOCKERHUB_USERNAME: davidstanke@gmail.com
+      DOCKERHUB_USERNAME: davidstanke
     materials:
       git:
         git: https://github.com/davidstanke/node-bulletin-board.git
