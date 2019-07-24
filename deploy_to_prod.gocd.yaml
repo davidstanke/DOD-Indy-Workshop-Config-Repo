@@ -11,6 +11,9 @@ pipelines:
       uat:
         pipeline: deploy_to_uat
         stage: approval_stage
+      compliance:
+        pipeline: compliance
+        stage: compliance_stage
       SourceCodeRepo:
         git: https://github.com/davidstanke/node-bulletin-board.git
         shallow_clone: false
