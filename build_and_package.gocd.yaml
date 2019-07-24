@@ -32,13 +32,13 @@ pipelines:
                 - docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application
                 command: /bin/bash
     - test_stage
-      approval:
-        type: success
-      jobs:
-        test_image:
-          elastic_profile_id: demo-app
-          tasks:
-          - exec:
-            arguments:
-            - -c
-            - docker run -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL npm test
+        approval:
+          type: success
+        jobs:
+          test_image:
+            elastic_profile_id: demo-app
+            tasks:
+            - exec:
+              arguments:
+              - -c
+              - docker run -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL npm test
